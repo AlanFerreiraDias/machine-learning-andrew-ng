@@ -32,16 +32,12 @@ h_theta_lin = X*theta;
 
 %prob of each h_theta is y
 %h_theta_log = 1/(1+e^(-h_theta_lin));
-
-%h_theta_log = arrayfun(@(z)1/(1+e^(-z)), h_theta_lin);
 h_theta_log = sigmoid(h_theta_lin);
 %h_theta_log (m,1)
 
-
-
 J = -(1/m)* (log(h_theta_log)' * y + log(1-h_theta_log)' * (1-y))
 
-%%Comitar Evoluçoes no Git
+
 
 % =============================================================
 
