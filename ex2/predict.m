@@ -16,12 +16,25 @@ p = zeros(m, 1);
 %
 
 
+%theta (n+1,1)  
+%X (m,n+1)
 
+h_theta_lin = X*theta;
+%h_theta_lin (m,1)
 
+%prob of each h_theta is y
+h_theta_log = sigmoid(h_theta_lin);
 
-
+p = arrayfun(@preditOneOrZero, h_theta_log);
 
 % =========================================================================
 
+end
 
+function pred = preditOneOrZero(x)
+    if x>=0.5 
+        pred = 1; 
+    else 
+        pred = 0;
+    endif
 end

@@ -9,7 +9,7 @@ m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
 J = 0;
-grad = zeros(size(theta))
+grad = zeros(size(theta));
 %(m,1)
 
 % ====================== YOUR CODE HERE ======================
@@ -36,14 +36,14 @@ h_theta_lin = X*theta;
 h_theta_log = sigmoid(h_theta_lin);
 %h_theta_log (m,1)
 
-J = -(1/m)* (log(h_theta_log)' * y + log(1-h_theta_log)' * (1-y))
+J = -(1/m)* (log(h_theta_log)' * y + log(1-h_theta_log)' * (1-y));
 
 %Derivative of J_theta w.r.t = (1/m) * sum i=1:m (h_theta_log - y)*x^i
 
-diff_matrix = h_theta_log - y
+diff_matrix = h_theta_log - y;
 %diff_matrix (m,1)
 
-grad = (1/m) * diff_matrix' * X
+grad = (1/m) * diff_matrix' * X;
 
 % =============================================================
 
