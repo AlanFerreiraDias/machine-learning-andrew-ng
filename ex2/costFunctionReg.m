@@ -36,11 +36,11 @@ h_theta_log = sigmoid(h_theta_lin);
 
 J = -(1/m)* (log(h_theta_log)' * y + log(1-h_theta_log)' * (1-y)) + (lambda/(2*m))*sum(theta([2:size(theta,1),:]).^2);
 
-%Derivative of J_theta w.r.t = (1/m) * sum i=1:m (h_theta_log - y)*x^i + (lambda/m)*theta_j j from initial_theta+1:n
 
-diff_matrix = h_theta_log - y;
 %diff_matrix (m,1)
+diff_matrix = h_theta_log - y;
 
+%Derivative of J_theta w.r.t = (1/m) * sum i=1:m (h_theta_log - y)*x^i + (lambda/m)*theta_j j from initial_theta+1:n
 grad = zeros(size(theta));
 grad = (1/m) * X' * diff_matrix + (lambda/m)*theta;
 grad(1,:) = (1/m) * X(:,1)' * diff_matrix;  %overwrites first element
