@@ -6,7 +6,7 @@
 %  This file contains code that helps you get started on the second part
 %  of the exercise which covers regularization with logistic regression.
 %
-%  You will need to complete the following functions in this exericse:
+%  You will need to complete the following functions in this exercise:
 %
 %     sigmoid.m
 %     costFunction.m
