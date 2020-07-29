@@ -21,12 +21,21 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+%includes bias row
+X = [ones(m,1) X]; %(m x n+1)
 
+% Theta1 (25 x 401) --> (S2 x n+1)
+% Theta2 (10 x 26) --> (S3 x S2 + 1)
 
+%First Layer
+activationHiddenLayer = sigmoid(X * Theta1');
+%activationHiddenLayer (m x S2);
 
+%Adds bias 
+activationHiddenLayer = [ones(m,1) activationHiddenLayer];
 
-
-
+%Second Layer
+[h_x, p] = max(sigmoid(activationHiddenLayer * Theta2'),[],2);
 
 
 % =========================================================================
