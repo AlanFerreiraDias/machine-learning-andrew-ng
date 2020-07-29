@@ -30,11 +30,13 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+%all_theta (Sj x (n+1))
+%X (m x (n+1))
 
+%X * all_theta' (m x Sj)
 
-
-
-
+%the first parameter returned by the max function is the probability of being the number on the second parameter
+[prob, p] = max(sigmoid(X * all_theta'),[],2);
 
 % =========================================================================
 
