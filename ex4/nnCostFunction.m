@@ -62,20 +62,34 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% X (m x input_layer_size)
+% Theta1 (hidden_layer_size x (input_layer_size+1))
+% Theta2 (num_labels x hidden_layer_size+1 )
 
 
+J = 0;
+for i = 1:m
 
+    %activation of layer 1
+    A1 = [ones(1,1) X(i,:)];
+    %activation of layer 2
+    A2 = [ones(1,1) sigmoid(A1 * Theta1')];
+    %output layer
+    H_Theta = sigmoid(A2 * Theta2');
+    %H_theta(1 x num_labels)
+    
 
+    %shoud transform y into a vector where the index is y and the rest is zero
+    y_vector = zeros(num_labels,1);
+    y_vector(y(i,1),1) = 1;
 
+    J =J + (-(1/m) * (log(H_Theta) * y_vector + log(1-H_Theta) * (1-y_vector)));
+    
 
-
-
-
-
-
-
-
-
+   % delta_output_layer = y_vector - H_Theta;
+   % delta_hidden_layer = (Theta2' * delta_output_layer).*A2.*(1-A2);
+        
+endfor
 
 
 

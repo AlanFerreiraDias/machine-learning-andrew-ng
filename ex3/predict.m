@@ -22,13 +22,13 @@ p = zeros(size(X, 1), 1);
 %
 
 %includes bias row
-X = [ones(m,1) X]; %(m x n+1)
+A1 = [ones(m,1) X]; %(m x n+1)
 
 % Theta1 (25 x 401) --> (S2 x n+1)
 % Theta2 (10 x 26) --> (S3 x S2 + 1)
 
 %First Layer
-activationHiddenLayer = sigmoid(X * Theta1');
+activationHiddenLayer = sigmoid(A1 * Theta1');
 %activationHiddenLayer (m x S2);
 
 %Adds bias 
