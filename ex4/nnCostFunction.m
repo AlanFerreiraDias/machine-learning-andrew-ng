@@ -83,7 +83,8 @@ for i = 1:m
     y_vector = zeros(num_labels,1);
     y_vector(y(i,1),1) = 1;
 
-    J =J + (-(1/m) * (log(H_Theta) * y_vector + log(1-H_Theta) * (1-y_vector)));
+    J_i = (-(1/m) * (log(H_Theta) * y_vector + log(1-H_Theta) * (1-y_vector))) ;
+    J = J + J_i;
     
 
    % delta_output_layer = y_vector - H_Theta;
@@ -91,8 +92,10 @@ for i = 1:m
         
 endfor
 
+Regularization_layer_1 = sum(Theta1(:,2:end)(:).^2);
+Regularization_layer_2 = sum(Theta2(:,2:end)(:).^2);
 
-
+J = J + (lambda/(2*m))*(Regularization_layer_1 + Regularization_layer_2);
 
 % -------------------------------------------------------------
 
