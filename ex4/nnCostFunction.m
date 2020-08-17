@@ -71,9 +71,11 @@ J = 0;
 for i = 1:m
 
     %activation of layer 1
-    A1 = [ones(1,1) X(i,:)];
+    Z1 = X(i,:);
+    A1 = [ones(1,1) Z1];
     %activation of layer 2
-    A2 = [ones(1,1) sigmoid(A1 * Theta1')];
+    Z2 = sigmoid(A1 * Theta1');
+    A2 = [ones(1,1) Z2];
     %output layer
     H_Theta = sigmoid(A2 * Theta2');
     %H_theta(1 x num_labels)
@@ -87,9 +89,24 @@ for i = 1:m
     J = J + J_i;
     
 
-   % delta_output_layer = y_vector - H_Theta;
-   % delta_hidden_layer = (Theta2' * delta_output_layer).*A2.*(1-A2);
-        
+    delta_output_layer =  H_Theta' - y_vector;
+    %s_d_out = size(delta_output_layer) % (10x1)
+    
+    %Theta 2 -> (10 x 26)
+    delta_hidden_layer = (Theta2' * delta_output_layer).*sigmoidGradient(Z2);
+    %     size_d2 = size(delta_hidden_layer) --> 26 x 25
+
+    %Theta_grad -> (10 x 26)
+                    %(10x26) + (10x1)*(1x26)
+                    %size_A2 = size(A2) -> (1x26)
+    Theta2_grad = Theta2_grad + delta_output_layer*A2;
+
+    %theta1_grad --> (25x401) + ((25x25) * (1x401))
+    Theta1_grad = Theta1_grad + delta_hidden_layer_without_bias*A1;
+    
+
+    pause
+
 endfor
 
 Regularization_layer_1 = sum(Theta1(:,2:end)(:).^2);
