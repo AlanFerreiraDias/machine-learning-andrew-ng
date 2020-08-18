@@ -90,22 +90,11 @@ for i = 1:m
     
 
     delta_output_layer =  H_Theta' - y_vector;
-    %s_d_out = size(delta_output_layer) % (10x1)
-    
-    %Theta 2 -> (10 x 26)
-    delta_hidden_layer = (Theta2' * delta_output_layer).*sigmoidGradient(Z2);
-    %     size_d2 = size(delta_hidden_layer) --> 26 x 25
+    delta_hidden_layer = (Theta2' * delta_output_layer).*sigmoidGradient(A2)';
 
-    %Theta_grad -> (10 x 26)
-                    %(10x26) + (10x1)*(1x26)
-                    %size_A2 = size(A2) -> (1x26)
+
     Theta2_grad = Theta2_grad + delta_output_layer*A2;
-
-    %theta1_grad --> (25x401) + ((25x25) * (1x401))
-    Theta1_grad = Theta1_grad + delta_hidden_layer_without_bias*A1;
-    
-
-    pause
+    Theta1_grad = Theta1_grad + delta_hidden_layer(2:end)*A1;
 
 endfor
 
@@ -114,9 +103,9 @@ Regularization_layer_2 = sum(Theta2(:,2:end)(:).^2);
 
 J = J + (lambda/(2*m))*(Regularization_layer_1 + Regularization_layer_2);
 
-% -------------------------------------------------------------
 
-% =========================================================================
+Theta2_grad = (1/m)*Theta2_grad;
+Theta1_grad = (1/m)*Theta1_grad;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
