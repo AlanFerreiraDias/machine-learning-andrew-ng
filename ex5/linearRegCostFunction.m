@@ -26,14 +26,18 @@ grad = zeros(size(theta));
  %theta -> 2x1 (n+1 x 1)
 H_theta = X * theta;
 diff_vector = H_theta - y;
+%(m x 1)
+
 Regularization = (lambda/(2*m)) * sum(theta(2:end,:).^2);
 
 J = (1/(2*m)) * sum(diff_vector.^2) + Regularization;
 
 
+%grad = (1/m) * sum i=1 to m (H_theta(x) - y)*x_j,i +.. if j>= 1 (lambda/m)*Theta_j
 
-
-
+grad = zeros(size(theta));
+grad(1,:) = (1/m) * diff_vector'*X(:,1);
+grad(2:end,:) = (1/m) * diff_vector'*X(:,2:end) + (lambda/m)*sum(theta(2:end,:));
 
 % =========================================================================
 
