@@ -32,12 +32,10 @@ Regularization = (lambda/(2*m)) * sum(theta(2:end,:).^2);
 
 J = (1/(2*m)) * sum(diff_vector.^2) + Regularization;
 
-
-%grad = (1/m) * sum i=1 to m (H_theta(x) - y)*x_j,i +.. if j>= 1 (lambda/m)*Theta_j
-
+%Derivative of J_theta w.r.t = (1/m) * sum i=1:m (h_theta_log - y)*x^i + (lambda/m)*theta_j j from initial_theta+1:n
 grad = zeros(size(theta));
-grad(1,:) = (1/m) * diff_vector'*X(:,1);
-grad(2:end,:) = (1/m) * diff_vector'*X(:,2:end) + (lambda/m)*sum(theta(2:end,:));
+grad = (1/m) * X' * diff_vector + (lambda/m)*theta;
+grad(1,:) = (1/m) * X(:,1)' * diff_vector;  %overwrites first element
 
 % =========================================================================
 
