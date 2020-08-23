@@ -16,7 +16,9 @@ sim = 0;
 %
 %
 
+dif_vector = x1-x2;
 
+sim = exp(-sum(dif_vector.^2)/(2*sigma^2));
 
 
 
