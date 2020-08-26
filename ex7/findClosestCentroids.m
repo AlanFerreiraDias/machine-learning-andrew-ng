@@ -5,9 +5,12 @@ function idx = findClosestCentroids(X, centroids)
 %   vector of centroid assignments (i.e. each entry in range [1..K])
 %
 
+%Get a subset of X for testing
+%X = X(1:5,:)
+
+
 % Set K
 K = size(centroids, 1);
-
 % You need to return the following variables correctly.
 idx = zeros(size(X,1), 1);
 
@@ -20,13 +23,18 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
+%distance between two points: d^2 = (x1-x2)^2+(y2-y1)^2
+diff_vector = zeros(size(X,1),1);
+distance_matrix_square = zeros(size(X,1),K);
 
-
-
-
-
-
-
+for i=1:K
+    %centroids
+    %centroids(i,:)
+    diff_vector = X.-centroids(i,:);
+    distance_matrix_square(:,i) = diff_vector(:,1).^2 + diff_vector(:,2).^2;
+endfor
+[min_dist, idx_dist] = min(distance_matrix_square');
+idx = idx_dist';
 % =============================================================
 
 end
