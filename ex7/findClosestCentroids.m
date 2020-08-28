@@ -7,6 +7,7 @@ function idx = findClosestCentroids(X, centroids)
 
 %Get a subset of X for testing
 %X = X(1:5,:)
+%X = [1,1;6,2;8,5;2,2;3,3;-1,-1;-2,-2;-3,-3]
 
 
 % Set K
