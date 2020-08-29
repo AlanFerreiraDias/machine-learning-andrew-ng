@@ -24,15 +24,13 @@ idx = zeros(size(X,1), 1);
 %
 % Note: You can use a for-loop over the examples to compute this.
 %
-%distance between two points: d^2 = (x1-x2)^2+(y2-y1)^2
+%distance between two points: d^2 = (x1-x2)^2+(y2-y1)^2 + ...
 diff_vector = zeros(size(X,1),1);
 distance_matrix_square = zeros(size(X,1),K);
 
 for i=1:K
-    %centroids
-    %centroids(i,:)
-    diff_vector = X.-centroids(i,:);
-    distance_matrix_square(:,i) = diff_vector(:,1).^2 + diff_vector(:,2).^2;
+    diff_vector= bsxfun(@minus, X, centroids(i,:));
+    distance_matrix_square(:,i) = sum(diff_vector.^2, 2);
 endfor
 [min_dist, idx_dist] = min(distance_matrix_square');
 idx = idx_dist';
