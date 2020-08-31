@@ -4,7 +4,6 @@ function [bestEpsilon bestF1] = selectThreshold(yval, pval)
 %   [bestEpsilon bestF1] = SELECTTHRESHOLD(yval, pval) finds the best
 %   threshold to use for selecting outliers based on the results from a
 %   validation set (pval) and the ground truth (yval).
-%
 
 bestEpsilon = 0;
 bestF1 = 0;
@@ -23,17 +22,40 @@ for epsilon = min(pval):stepsize:max(pval)
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
 
+    predictions = (pval < epsilon);
 
+    classifiedPositivesIndices = find(predictions == 1);
+    classifiedNegativeIndices = find(predictions == 0);
 
+    %Predicted positives that are positives
+    truePositives = sum(yval(classifiedPositivesIndices)==1);
 
+    %Predicted positives that are negatives
+    falsePositives = sum(yval(classifiedPositivesIndices)==0);
 
+    %Predicted negatives that are negatives
+    trueNegatives = sum(yval(classifiedNegativeIndices)==0);
 
+    %Predicted negatives that are positives
+    falseNegatives = sum(yval(classifiedNegativeIndices)==1);
 
+    if(truePositives+falsePositives > 0)
+        precision = truePositives/(truePositives+falsePositives);
+    else
+        precision = 0;
+    end
 
+    if(truePositives+falseNegatives > 0)
+        recall = truePositives/(truePositives+falseNegatives);
+    else
+        recall = 0;
+    end
 
-
-
-
+    if(precision+recall > 0)
+        F1=2*(precision*recall)/(precision+recall);
+    else
+        F1 = 0;
+    end
 
     % =============================================================
 
