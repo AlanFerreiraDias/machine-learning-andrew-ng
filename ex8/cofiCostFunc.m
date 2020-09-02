@@ -41,18 +41,10 @@ Theta_grad = zeros(size(Theta));
 %
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+Predictions = X*Theta';
+Diff = Predictions - Y;
+ValidCases = Diff .* R
+J = (1/2) * sum (ValidCases(:).^2);
 
 
 % =============================================================
