@@ -41,7 +41,8 @@ Theta_grad = zeros(size(Theta));
 %
 
 % X     --> movies x features
-% Theta --> users x features 
+% Theta --> users x features
+% R --> movies x users 
 
 Predictions = X*Theta';
 % movies x users
@@ -52,12 +53,18 @@ Diff = Predictions - Y;
 ValidCases = Diff .* R;
 % movies x users
 
+
 J = (1/2) * sum (ValidCases(:).^2);
 
-X_grad = ValidCases * Theta; 
+X_regularization = (lambda/2) * sum(X(:).^2);
+Theta_regularization = (lambda/2) * sum(Theta(:).^2);
+
+J = J + X_regularization + Theta_regularization;
+
+X_grad = ValidCases * Theta + lambda*X; 
 % movies x features
 
-Theta_grad = ValidCases' * X  ;
+Theta_grad = ValidCases' * X  + lambda*Theta;
 % users x features
 
 % =============================================================
