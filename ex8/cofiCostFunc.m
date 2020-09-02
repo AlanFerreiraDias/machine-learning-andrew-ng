@@ -40,12 +40,25 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+% X     --> movies x features
+% Theta --> users x features 
 
 Predictions = X*Theta';
+% movies x users
+
 Diff = Predictions - Y;
-ValidCases = Diff .* R
+% movies x users
+
+ValidCases = Diff .* R;
+% movies x users
+
 J = (1/2) * sum (ValidCases(:).^2);
 
+X_grad = ValidCases * Theta; 
+% movies x features
+
+Theta_grad = ValidCases' * X  ;
+% users x features
 
 % =============================================================
 
